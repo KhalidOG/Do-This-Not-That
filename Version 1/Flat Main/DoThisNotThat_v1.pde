@@ -7,6 +7,10 @@ float x, y, xDiameter, yDiameter;
 color black=#000000, white=#FFFFE1; //Night Mode, blue is 00 on the black, but not the white
 Boolean rectON=false, ellipseON=false;
 //
+PFont buttonFont;
+color purple=#FF00FF; //Not Night Mode friendly, both have 255 of blue
+String buttonText1="Click Me", buttonText2="Or Me";
+//
 void setup()
 {
   //Display Geometry
@@ -31,28 +35,35 @@ void setup()
   println( "App Width:", appWidth, "\tApp Height:", appHeight );
   //
   //Population
-   buttonX1 = appWidth*1/4;
-   buttonY1 = appHeight*3/4;
-   buttonWidth1 = appWidth*1/5;
-   buttonHeight1 = appHeight*1/5;
-   buttonX2 = appWidth*3/4;
-   buttonY2 = buttonY1;
-   buttonWidth2 = buttonWidth1;
-   buttonHeight2 = buttonHeight1;
-   rectDisplayX = appWidth*1/8;
-   rectDisplayY = appHeight*1/8;
-   rectDisplayWidth = buttonWidth1;
-   rectDisplayHeight = buttonWidth1;
-   ellipseX = appWidth*6/8;
-   ellipseY = rectDisplayY;
-   ellipseXDiameter = appWidth*1/8; //formulae similar to square but actually rectangle
-   ellipseYDiameter = appHeight*1/8;
-   float ellipseRectXCenter = ellipseX + ellipseXDiameter*1/2;
-   float ellipseRectYCenter = ellipseY + ellipseYDiameter*1/2;
-   x = ellipseRectXCenter;
-   y = ellipseRectYCenter;
-   xDiameter = ellipseXDiameter;
-   yDiameter = ellipseYDiameter;
+  buttonX1 = appWidth*1/4;
+  buttonY1 = appHeight*3/4;
+  buttonWidth1 = appWidth*1/5;
+  buttonHeight1 = appHeight*1/5;
+  buttonX2 = appWidth*3/4;
+  buttonY2 = buttonY1;
+  buttonWidth2 = buttonWidth1;
+  buttonHeight2 = buttonHeight1;
+  rectDisplayX = appWidth*1/8;
+  rectDisplayY = appHeight*1/8;
+  rectDisplayWidth = buttonWidth1;
+  rectDisplayHeight = buttonWidth1;
+  ellipseX = appWidth*6/8;
+  ellipseY = rectDisplayY;
+  ellipseXDiameter = appWidth*1/8; //formulae similar to square but actually rectangle
+  ellipseYDiameter = appHeight*1/8;
+  float ellipseRectXCenter = ellipseX + ellipseXDiameter*1/2;
+  float ellipseRectYCenter = ellipseY + ellipseYDiameter*1/2;
+  x = ellipseRectXCenter;
+  y = ellipseRectYCenter;
+  xDiameter = ellipseXDiameter;
+  yDiameter = ellipseYDiameter;
+  //
+  //Text Setup
+  //String[] fontList = PFont.list(); //To list all fonts available on system
+  println("Start of Console");
+  //printArray(fontList); //For listing all possible fonts to choose, then createFont
+  buttonFont = createFont ("Harrington", 55); //Must also Tools / Create Font / Find Font / Do Not Press "OK"
+  //
 }//End setup
 //
 void draw()
@@ -63,6 +74,19 @@ void draw()
   if ( rectON==true && ellipseON==false ) rect( rectDisplayX, rectDisplayY, rectDisplayWidth, rectDisplayHeight ); //DIV: Display Rectangle
   //rect( ellipseX, ellipseY, ellipseXDiameter, ellipseYDiameter ); //DIV: Display Ellipse
   if ( rectON==false && ellipseON==true ) ellipse(x, y, xDiameter, yDiameter);
+  //
+  //Text Draw, General Code for any text
+  //Note: visualization rectangle is in main program
+  fill(purple); //Ink, hexidecimal copied from Color Selector
+  textAlign (CENTER, CENTER); //Align X&Y, see Processing.org / Reference
+  //Values: [LEFT | CENTER | RIGHT] & [TOP | CENTER | BOTTOM | BASELINE]
+  textFont(buttonFont, 25); //Change the number until it fits, largest font size
+  //
+  //Specific Text per button
+  text( buttonText1, buttonX1, buttonY1, buttonWidth1, buttonHeight1 );
+  text( buttonText2, buttonX2, buttonY2, buttonWidth2, buttonHeight2 );
+  fill(white); //Reset Ink
+  //
 }//End draw
 //
 void keyPressed() {
